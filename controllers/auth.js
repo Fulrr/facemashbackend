@@ -68,6 +68,7 @@ exports.login = async (req, res, next) => {
         { expiresIn: '1h' }
       );
       res.status(200).json({ token: token, userId: storedUser.aid });
+      res.status(201).json({ message: 'User registered' })
     } catch (err) {
       if (!err.statusCode) {
         err.statusCode = 500;
