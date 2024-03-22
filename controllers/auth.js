@@ -57,7 +57,7 @@ exports.login = async (req, res, next) => {
         // const error = new Error('Wrong password!');
         // error.statusCode = 401;
         // throw error;
-        return res.status(401).json({ error: 'Wrong password!' });
+        return res.status(401).json({ message: 'Wrong password!' });
       }
 
       
