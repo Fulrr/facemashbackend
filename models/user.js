@@ -22,5 +22,7 @@ module.exports = class User {
     static getCurrentUser() {
         return db.execute('SELECT name FROM account',);
     }
+
+    
 };
 
