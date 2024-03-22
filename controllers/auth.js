@@ -70,15 +70,12 @@ exports.login = async (req, res, next) => {
         { expiresIn: '1h' }
       );
       // res.status(200).json({ token: token, userId: storedUser.aid });
-      if (!isEqual) {
-        res.json({ message: 'Wrong password!' });
-      } else {
         res.status(200).json({ 
           token: token, 
           userId: storedUser.aid,
           message: 'login successfully'
       });
-      }
+      
       
 
     } catch (err) {
