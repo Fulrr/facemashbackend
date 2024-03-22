@@ -80,7 +80,7 @@ exports.login = async (req, res, next) => {
     } catch (err) {
       if (!err.statusCode) {
         err.statusCode = 500;
-      }
+      }res.status(500).json({ message: 'Wrong password!' })
       next(err);
     }
   };
