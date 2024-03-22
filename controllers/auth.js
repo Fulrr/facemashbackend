@@ -54,11 +54,14 @@ exports.login = async (req, res, next) => {
       const isEqual = await bcrypt.compare(password, storedUser.password);
   
       if (!isEqual) {
-        const error = new Error('Wrong password!');
-        error.statusCode = 401;
-        throw error;
+        // const error = new Error('Wrong password!');
+        // error.statusCode = 401;
+        // throw error;
+        return res.status(401).json({ error: 'Wrong password!' });
       }
-  
+
+      
+
       const token = jwt.sign(
         {
           email: storedUser.email,
