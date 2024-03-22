@@ -10,9 +10,8 @@ module.exports = class Image {
   }
 
   static fetchAll() {
-    return db.execute('SELECT image_id, facemash_id, image_url, ROUND(points, 2) AS points, account.name AS name FROM images INNER JOIN account ON images.facemash_id = account.aid');
-}
-
+    return db.execute('SELECT image_id, facemash_id,image_url, points, account.name as name FROM images INNER JOIN account on images.facemash_id = account.aid');
+  }
 
   static updatePoints(imageId, newPoints) {
     return db.execute('UPDATE images SET points = ? WHERE image_id = ?', [newPoints, imageId]);
