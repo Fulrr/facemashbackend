@@ -82,7 +82,7 @@ exports.login = async (req, res, next) => {
     }
 
     if (!err.message || err.message === 'Wrong password!') {
-      res.status(401).json({ message: err.message || 'Wrong password!' });
+      res.status(400).json({ message: err.message || 'Wrong password!' });
     } else {
       next(err);
     }
