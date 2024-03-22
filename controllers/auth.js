@@ -27,7 +27,7 @@ exports.singup = async (req, res, next) => {
 
     const result = await User.save(userDetails);
 
-    res.status(201).json({ message: 'User registered' })
+    res.status(201).json({ message: 'successfully registered' })
   } catch (err) {
     if (!err.statusCode) {
       err.statusCode = 500;
