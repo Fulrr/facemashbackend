@@ -71,7 +71,7 @@ exports.login = async (req, res, next) => {
       );
       // res.status(200).json({ token: token, userId: storedUser.aid });
       if (!isEqual) {
-        res.status(401).json({ message: 'Wrong password!' });
+        res.status(200).json({ message: 'Wrong password!' });
       } else {
         res.status(200).json({ 
           token: token, 
