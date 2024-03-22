@@ -30,4 +30,9 @@ router.post(
 
 router.get('/show:id', authController.getCurrentUser);
 
+router.get(
+    '/checkToken', authController.checkToken);
+
+      
+
 module.exports = router;

@@ -100,3 +100,8 @@ exports.getCurrentUser = async (req, res, next) => {
     next(err);
   }
 };
+
+exports.checkToken = async (req, res) => {
+  return res.status(200).json({ message: "true" });
+};
+
