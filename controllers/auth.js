@@ -81,9 +81,8 @@ exports.login = async (req, res, next) => {
       err.statusCode = 500;
     }
 
-    console.error(err.message);
-    if (err.message === 'Wrong password!') {
-      res.status(401).json({ message: err.message });
+    if (!err.message || err.message === 'Wrong password!') {
+      res.status(401).json({ message: err.message || 'Wrong password!' });
     } else {
       next(err);
     }
