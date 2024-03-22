@@ -76,12 +76,12 @@ exports.login = async (req, res, next) => {
       message: 'login successfully'
     });
 
-    res.status(401).json({ message: 'Wrong password!' });
-
   } catch (err) {
     if (!err.statusCode) {
       err.statusCode = 500;
     }
+
+    console.error(err.message);
     if (err.message === 'Wrong password!') {
       res.status(401).json({ message: err.message });
     } else {
