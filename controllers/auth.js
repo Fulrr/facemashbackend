@@ -109,9 +109,9 @@ exports.checkToken = async (req, res) => {
 
 
 exports.getUsedetail = async (req, res, next) => {
-  const email = req.body.email;
+  const userId = req.body.userId;
   try {
-    const user = await User.find(email);
+    const user = await User.finduserId(userId);
 
     if (user[0].length !== 1) {
       const error = new Error('A user with this email could not be found.');
