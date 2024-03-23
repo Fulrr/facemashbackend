@@ -13,20 +13,21 @@ exports.fetchAll = async (req, res, next) => {
 };
 
 exports.updatePoints = async (req, res, next) => {
-      const imageId = req.params.id;
-      const newPoints = req.body.points;
+    const imageId = req.params.id;
+    const newPoints = req.body.points;
   
-      try {
-        const result = await Image.updatePoints(imageId, newPoints);
-        if (result.affectedRows > 0) {
-          res.status(200).json({ message: 'Points updated successfully' });
-        } else {
-          res.status(404).json({ message: 'Image not found' });
-        }
-      } catch (error) {
-        next(error);
+    try {
+      const result = await Image.updatePoints(imageId, newPoints);
+      if (result.affectedRows > 0) {
+        res.status(200).json({ message: 'Points updated successfully' });
+      } else {
+        res.status(404).json({ message: 'Image not found' });
       }
+    } catch (error) {
+      next(error);
+    }
   };
+  
 
 exports.fetchTopTen = async (req, res, next) => {
     try {

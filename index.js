@@ -18,8 +18,6 @@ app.use((req, res, next) => {
 
 app.use('/auth', authRoutes);
 app.use('/img', imgsRoutes);
-app.use('/img/update-score/:id', imgsRoutes);
-
 
 // //Uploads
 // app.use("/upload", upload);
