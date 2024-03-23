@@ -65,6 +65,7 @@ exports.login = async (req, res, next) => {
       {
         email: storedUser.email,
         userId: storedUser.aid,
+        actype: storedUser.actype,
       },
       'secretfortoken',
       { expiresIn: '1h' }
