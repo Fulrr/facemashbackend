@@ -73,6 +73,7 @@ exports.login = async (req, res, next) => {
     res.status(200).json({
       token: token,
       userId: storedUser.aid,
+      actype: storedUser.actype,
       message: 'login successfully'
     });
 
