@@ -35,7 +35,7 @@ router.post('/getUsedetail', authController.getUsedetail);
 router.get(
     '/checkToken', authController.checkToken);
 
-router.get('/findID/:id', authController.finduserId);
+router.get('/findID:id', authController.finduserId);
       
 
 module.exports = router;
