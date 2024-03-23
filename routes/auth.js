@@ -25,17 +25,15 @@ router.post(
 );
 
 
-router.post(
-    '/login', authController.login);
+router.post('/login', authController.login);
 
-router.get('/show:id', authController.getCurrentUser);
+router.get('/show/:id', authController.getCurrentUser);
 
 router.post('/getUsedetail', authController.getUsedetail);
 
-router.get(
-    '/checkToken', authController.checkToken);
+router.get('/checkToken', authController.checkToken);
 
-router.get('/findID:id', authController.finduserId);
+// router.get('/findID:id', authController.finduserId);
       
 
 module.exports = router;
