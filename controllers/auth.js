@@ -65,6 +65,7 @@ exports.login = async (req, res, next) => {
       {
         email: storedUser.email,
         userId: storedUser.aid,
+        actype: storedUser.actype,
       },
       'secretfortoken',
       { expiresIn: '1h' }
@@ -73,6 +74,7 @@ exports.login = async (req, res, next) => {
     res.status(200).json({
       token: token,
       userId: storedUser.aid,
+      actype: storedUser.actype,
       message: 'login successfully'
     });
 
@@ -103,5 +105,38 @@ exports.getCurrentUser = async (req, res, next) => {
 
 exports.checkToken = async (req, res) => {
   return res.status(200).json({ message: "true" });
+};
+
+
+exports.getUsedetail = async (req, res, next) => {
+  const userId = req.body.userId;
+  try {
+    const user = await User.finduserId(userId);
+
+    if (user[0].length !== 1) {
+      const error = new Error('A user with this email could not be found.');
+      error.statusCode = 401;
+      throw error;
+    }
+
+    const storedUser = user[0][0];
+
+
+    res.status(200).json({
+      avatar_img: storedUser.avatar_img,
+      name: storedUser.name,
+      email: storedUser.email,
+    });
+
+
+  }catch (err) {
+    if (!err.statusCode) {
+      err.statusCode = 500;
+    }
+    next(err);
+    
+  }
+  
+  
 };
 

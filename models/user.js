@@ -12,6 +12,11 @@ module.exports = class User {
         return db.execute('SELECT * FROM account WHERE email = ?',[email]);
     }
 
+    static finduserId(userId) {
+        return db.execute('SELECT * FROM account WHERE aid = ?',[userId]);
+    }
+
+
     static save(user) {
         return db.execute(
             'INSERT INTO account (avatar_img, name, email, password) VALUES (?, ?, ?, ?)',
