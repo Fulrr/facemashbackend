@@ -30,6 +30,8 @@ router.post(
 
 router.get('/show:id', authController.getCurrentUser);
 
+router.post('/getUsedetail', authController.getUsedetail);
+
 router.get(
     '/checkToken', authController.checkToken);
 
