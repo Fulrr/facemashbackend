@@ -24,6 +24,10 @@ module.exports = class Image {
   static fetchTopTenUser() {
     return db.execute('SELECT * FROM account');
   }
+
+  static onlyone(aid) {
+    return db.execute('SELECT * FROM images WHERE facemash_id = ?' [aid]);
+  }
 };
 
 

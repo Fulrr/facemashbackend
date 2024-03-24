@@ -51,3 +51,17 @@ exports.fetchTopTenUser = async (req, res, next) => {
     }
 };
 
+exports.onlyone = async (req, res, next) => {
+    const aid = req.params.id;
+  
+    try {
+      const result = await Image.onlyone(aid);
+      if (result.affectedRows > 0) {
+        res.status(200).json({ message: 'successfully' });
+      } else {
+        res.status(404).json({ message: 'Image not found' });
+      }
+    } catch (error) {
+      next(error);
+    }
+  };
