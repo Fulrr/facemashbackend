@@ -11,6 +11,6 @@ router.get('/', imgsController.fetchAll);
 router.put('/update-score/:id', imgsController.updatePoints);
 router.get('/top-ten', imgsController.fetchTopTen);
 router.get('/top-ten-user', imgsController.fetchTopTenUser);
-router.get('/only/:id', imgsController.onlyone);
+router.get('/find/:id', imgsController.onlyone);
 
 module.exports = router;
