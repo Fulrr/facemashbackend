@@ -55,12 +55,20 @@ exports.onlyone = async (req, res, next) => {
     const id = req.params.id;
   
     try {
-        const allImages = await Image.onlyone(id); 
-        res.status(200).json(allImages); 
+        // เรียกใช้เมธอด findOne จากโมเดล Image เพื่อดึงข้อมูลรูปภาพเฉพาะหนึ่งรูป
+        const image = await Image.findOne(id); 
+        if (!image) {
+            // ถ้าไม่พบรูปภาพตาม ID ที่ระบุให้ส่งข้อความข้อผิดพลาด
+            const error = new Error('Image not found');
+            error.statusCode = 404;
+            throw error;
+        }
+        res.status(200).json(image); // ส่งข้อมูลรูปภาพที่พบกลับไป
     } catch (err) {
         if (!err.statusCode) {
             err.statusCode = 500;
         }
         next(err);
     }
- };
+};
+
