@@ -123,6 +123,7 @@ exports.getUsedetail = async (req, res, next) => {
 
 
     res.status(200).json({
+      aid: storedUser.aid,
       avatar_img: storedUser.avatar_img,
       name: storedUser.name,
       email: storedUser.email,
