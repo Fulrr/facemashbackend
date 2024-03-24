@@ -122,7 +122,7 @@ exports.getUsedetail = async (req, res, next) => {
     const storedUser = user[0][0];
 
     res.status(200).json({
-      aid: userId,
+      aid: storedUser.aid, // ใช้ storedUser.aid แทน userId
       avatar_img: storedUser.avatar_img,
       name: storedUser.name,
       email: storedUser.email,
@@ -135,4 +135,5 @@ exports.getUsedetail = async (req, res, next) => {
     next(err);
   } 
 };
+
 
