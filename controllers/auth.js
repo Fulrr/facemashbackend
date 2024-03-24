@@ -109,7 +109,7 @@ exports.checkToken = async (req, res) => {
 
 
 exports.getUsedetail = async (req, res, next) => {
-  const userId = req.body.userId;
+  const userId = req.query.userId; // เปลี่ยนจาก req.body.userId เป็น req.query.userId
   try {
     const user = await User.finduserId(userId);
 
@@ -121,23 +121,18 @@ exports.getUsedetail = async (req, res, next) => {
 
     const storedUser = user[0][0];
 
-
     res.status(200).json({
-      aid: storedUser.aid,
+      aid: userId,
       avatar_img: storedUser.avatar_img,
       name: storedUser.name,
       email: storedUser.email,
     });
 
-
-  }catch (err) {
+  } catch (err) {
     if (!err.statusCode) {
       err.statusCode = 500;
     }
     next(err);
-    
-  }
-  
-  
+  } 
 };
 
