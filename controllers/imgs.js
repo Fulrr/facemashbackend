@@ -52,7 +52,7 @@ exports.fetchTopTenUser = async (req, res, next) => {
 };
 
 exports.onlyone = async (req, res, next) => {
-    const id = req.body.id;
+    const id = req.params.id;
   
     try {
         const allImages = await Image.onlyone(id); 

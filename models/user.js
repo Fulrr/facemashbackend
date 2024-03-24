@@ -1,7 +1,7 @@
 const db = require('../util/database');
 
 module.exports = class User {
-    constructor(avatar_img, name, email, password) {
+    constructor(aid, avatar_img, name, email, password) {
         this.aid = aid;
         this.avatar_img = avatar_img;
         this.name = name;
@@ -14,10 +14,9 @@ module.exports = class User {
     }
 
     static finduserId(userId) {
-        return db.execute('SELECT * FROM account WHERE aid = ? INNER JOIN images ON images.facemash_id = account.aid',[userId]);
+        return db.execute('SELECT * FROM account INNER JOIN images ON images.facemash_id = account.aid WHERE account.aid = ?', [userId]);
     }
-
-
+    
     static save(user) {
         return db.execute(
             'INSERT INTO account (avatar_img, name, email, password) VALUES (?, ?, ?, ?)',

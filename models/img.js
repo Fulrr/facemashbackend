@@ -25,8 +25,8 @@ module.exports = class Image {
     return db.execute('SELECT * FROM account');
   }
 
-  static onlyone(id) {
-    return db.execute('SELECT * FROM images WHERE facemash_id = ?', [id]);
+  static onlyone(aid) {
+    return db.execute('SELECT * FROM images WHERE facemash_id = ?', [aid]);
   }
 };
 

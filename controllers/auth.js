@@ -122,7 +122,7 @@ exports.getUsedetail = async (req, res, next) => {
     const storedUser = user[0][0];
 
     res.status(200).json({
-      aid: storedUser.aid, // ใช้ storedUser.aid แทน userId
+      aid: storedUser.aid, 
       avatar_img: storedUser.avatar_img,
       name: storedUser.name,
       email: storedUser.email,
@@ -134,6 +134,32 @@ exports.getUsedetail = async (req, res, next) => {
     }
     next(err);
   } 
+};
+
+exports.finduserId = async (req, res, next) => {
+  const userId = req.params.id;
+
+  try {
+    const user = await User.finduserId(userId); 
+
+    if (user[0].length !== 1) {
+      throw new Error('A user with this email could not be found.');
+    }
+
+    const storedUser = user[0][0];
+
+    res.status(200).json({
+      aid: storedUser.aid,
+      avatar_img: storedUser.avatar_img,
+      name: storedUser.name,
+      email: storedUser.email,
+    }); 
+  } catch (err) {
+    if (!err.statusCode) {
+      err.statusCode = 500;
+    }
+    next(err);
+  }
 };
 
 
