@@ -13,7 +13,7 @@ module.exports = class User {
     }
 
     static finduserId(userId) {
-        return db.execute('SELECT * FROM account WHERE aid = ?',[userId]);
+        return db.execute('SELECT * FROM account WHERE aid = ? INNER JOIN images ON images.facemash_id = account.aid',[userId]);
     }
 
 
