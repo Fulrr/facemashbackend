@@ -26,7 +26,7 @@ module.exports = class Image {
   }
 
   static onlyone(aid) {
-    return db.execute('SELECT image_id, facemash_id,image_url, ROUND(points, 2) as points, account.name as name, account.* FROM images INNER JOIN account on images.facemash_id = account.aid WHERE facemash_id = ?', [aid]);
+    return db.execute('SELECT image_url, account.name as name FROM images INNER JOIN account on images.facemash_id = account.aid WHERE facemash_id = ?', [aid]);
   }
 };
 
