@@ -52,11 +52,11 @@ exports.fetchTopTenUser = async (req, res, next) => {
 };
 
 exports.onlyone = async (req, res, next) => {
-    const userId = req.params.id;
+    const id = req.params.id;
   
     try {
-        const user = await User.finduserId(userId); 
-        res.status(200).json(user); 
+        const allImages = await Image.onlyone(id); 
+        res.status(200).json(allImages); 
     } catch (err) {
         if (!err.statusCode) {
             err.statusCode = 500;
