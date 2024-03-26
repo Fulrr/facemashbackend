@@ -31,6 +31,8 @@ router.get('/show/:id', authController.getCurrentUser);
 
 router.post('/getUsedetail', authController.getUsedetail);
 
+router.get('/getaccount', authController.getaccount);
+
 router.get('/checkToken', authController.checkToken);
 
 // router.get('/findID:id', authController.finduserId);
