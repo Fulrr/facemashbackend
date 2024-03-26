@@ -144,7 +144,7 @@ exports.getUsedetail = async (req, res, next) => {
 
 exports.getaccount = async (req, res, next) => {
   try {
-      const allac = await Image.getaccount(); 
+      const allac = await User.getaccount(); 
       res.status(200).json(allac); 
   } catch (err) {
       if (!err.statusCode) {
