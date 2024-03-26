@@ -123,6 +123,7 @@ exports.getUsedetail = async (req, res, next) => {
 
 
     res.status(200).json({
+      aid: storedUser.aid,
       avatar_img: storedUser.avatar_img,
       name: storedUser.name,
       email: storedUser.email,
@@ -140,3 +141,15 @@ exports.getUsedetail = async (req, res, next) => {
   
 };
 
+
+exports.getaccount = async (req, res, next) => {
+  try {
+      const allac = await User.getaccount(); 
+      res.status(200).json(allac); 
+  } catch (err) {
+      if (!err.statusCode) {
+          err.statusCode = 500;
+      }
+      next(err);
+  }
+};
