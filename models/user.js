@@ -32,13 +32,31 @@ module.exports = class User {
         return db.execute('SELECT * FROM account',);
     }
 
-    static updatePassword(userId, hashedNewPassword) {
-        return db.execute(
-            'UPDATE account SET password = ? WHERE aid = ?',
-            [hashedNewPassword, userId]
-        );
-    }
-    
+
+    static updateUserDetails(userId, newPassword, updatedUserDetails) {
+        // Constructing the SQL query dynamically based on the updated user details
+        let updateQuery = 'UPDATE account SET ';
+        const queryParams = [];
+      
+        // Iterate through the updatedUserDetails object to build the query
+        for (const [key, value] of Object.entries(updatedUserDetails)) {
+          updateQuery += `${key} = ?, `;
+          queryParams.push(value);
+        }
+      
+        // Add the new password to the query parameters
+        queryParams.push(newPassword);
+      
+        // Remove the last comma and add the WHERE clause
+        updateQuery = updateQuery.slice(0, -2) + ' WHERE aid = ?';
+      
+        // Add the userId to the query parameters
+        queryParams.push(userId);
+      
+        // Execute the update query
+        return db.execute(updateQuery, queryParams);
+      }
+      
 
     
 };

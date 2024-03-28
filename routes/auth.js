@@ -31,7 +31,7 @@ router.get('/show/:id', authController.getCurrentUser);
 
 router.post('/getUsedetail', authController.getUsedetail);
 
-router.post('/changePassword', authController.changePassword);
+router.post('/updateUserDetails', authController.updateUserDetails);
 
 
 router.get(

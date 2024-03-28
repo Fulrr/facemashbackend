@@ -155,45 +155,60 @@ exports.getaccount = async (req, res, next) => {
 };
 
 
-exports.changePassword = async (req, res, next) => {
+exports.updateUserDetails = async (req, res, next) => {
   const userId = req.body.userId;
   const oldPassword = req.body.oldPassword;
   const newPassword = req.body.newPassword;
+  const newName = req.body.newName;
+  const newAvatarImg = req.body.newAvatarImg;
 
   try {
-    // ค้นหาผู้ใช้ด้วย userId
+    // Find the user by userId
     const user = await User.finduserId(userId);
 
-    // ตรวจสอบว่ามีผู้ใช้หรือไม่
+    // Check if the user exists
     if (user[0].length !== 1) {
       const error = new Error('A user with this ID could not be found.');
       error.statusCode = 404;
       throw error;
     }
 
-    // เก็บข้อมูลผู้ใช้
+    // Store user data
     const storedUser = user[0][0];
 
-    // ตรวจสอบว่ารหัสผ่านเดิมถูกต้องหรือไม่
+    // Check if the old password is correct
     const isEqual = await bcrypt.compare(oldPassword, storedUser.password);
 
-    // ถ้ารหัสผ่านไม่ตรงกับรหัสผ่านเดิม
+    // If the old password is incorrect
     if (!isEqual) {
       const error = new Error('Old password is incorrect.');
       error.statusCode = 401;
       throw error;
     }
 
-    // ถ้ารหัสผ่านเดิมถูกต้อง ให้เข้ารหัสรหัสผ่านใหม่
+    // If the old password is correct, hash the new password
     const hashedNewPassword = await bcrypt.hash(newPassword, 12);
 
-    // อัปเดตรหัสผ่านใหม่ในฐานข้อมูล
-    await User.updatePassword(userId, hashedNewPassword);
+    // Prepare an object to store updated user details
+    const updatedUserDetails = {};
 
-    // ส่งคำตอบกลับ
-    res.status(200).json({ message: 'Password changed successfully.' });
+    // If there's a new name, update it
+    if (newName) {
+      updatedUserDetails.name = newName;
+    }
+
+    // If there's a new avatar image, update it
+    if (newAvatarImg) {
+      updatedUserDetails.avatar_img = newAvatarImg;
+    }
+
+    // Update the password in the database
+    await User.updateUserDetails(userId, hashedNewPassword, updatedUserDetails);
+
+    // Send response
+    res.status(200).json({ message: 'Password and user details changed successfully.' });
   } catch (err) {
-    // จัดการข้อผิดพลาด
+    // Handle errors
     if (!err.statusCode) {
       err.statusCode = 500;
     }
