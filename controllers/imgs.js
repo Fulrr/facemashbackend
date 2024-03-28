@@ -103,15 +103,16 @@ exports.delete = async (req, res, next) => {
     }
   };
 
-  exports.fetchAllUserImages = async (req, res, next) => {
-    const userId = req.params.userId; // สมมติว่า userId ถูกส่งมาในพารามิเตอร์ของคำขอ
-    
+  exports.fetchAll = async (req, res, next) => {
     try {
-        const userImages = await db.execute('SELECT image_id, facemash_id, image_url, points FROM images WHERE facemash_id = ? ORDER BY points DESC', [userId]);
-        res.status(200).json(userImages[0]);
-    } catch (error) {
-        console.error("ไม่สามารถดึงรูปภาพของผู้ใช้ได้:", error);
-        res.status(500).json({ message: "ไม่สามารถดึงรูปภาพของผู้ใช้ได้" });
+        const userId = req.params.userId; // รับ userId ที่ส่งมาจาก frontend
+        const allImages = await Image.fetchAllByUserId(userId); // เรียกใช้เมธอด fetchAllByUserId จากโมเดล
+        res.status(200).json(allImages); 
+    } catch (err) {
+        if (!err.statusCode) {
+            err.statusCode = 500;
+        }
+        next(err);
     }
 };
 
