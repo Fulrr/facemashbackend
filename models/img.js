@@ -43,7 +43,14 @@ module.exports = class Image {
 
   static fetchAllByUserId(userId) {
     return db.execute('SELECT * FROM images WHERE facemash_id = ?', [userId]);
-}
+  }
+
+  static updateImg(userId, newImg) {
+    return db.execute(
+      'UPDATE images SET image_url = ? WHERE aid = ?',
+      [newImg, userId]
+    );
+  }
 };
 
 
