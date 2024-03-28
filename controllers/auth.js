@@ -161,6 +161,7 @@ exports.updateUserDetails = async (req, res, next) => {
   const newPassword = req.body.newPassword;
   const newName = req.body.newName;
   const newAvatarImg = req.body.newAvatarImg;
+  const updateField = req.body.updateField; // Field to update: password, name, or avatar_img
 
   try {
     // Find the user by userId
@@ -176,37 +177,45 @@ exports.updateUserDetails = async (req, res, next) => {
     // Store user data
     const storedUser = user[0][0];
 
-    // Check if the old password is correct
-    const isEqual = await bcrypt.compare(oldPassword, storedUser.password);
+    // Check if the old password is correct if updating password
+    if (updateField === 'password') {
+      const isEqual = await bcrypt.compare(oldPassword, storedUser.password);
 
-    // If the old password is incorrect
-    if (!isEqual) {
-      const error = new Error('Old password is incorrect.');
-      error.statusCode = 401;
-      throw error;
+      // If the old password is incorrect
+      if (!isEqual) {
+        const error = new Error('Old password is incorrect.');
+        error.statusCode = 401;
+        throw error;
+      }
+
+      // If the old password is correct, hash the new password
+      const hashedNewPassword = await bcrypt.hash(newPassword, 12);
+
+      // Update the password in the database
+      await User.updatePassword(userId, hashedNewPassword);
+
+      // Send response
+      return res.status(200).json({ message: 'Password changed successfully.' });
     }
-
-    // If the old password is correct, hash the new password
-    const hashedNewPassword = await bcrypt.hash(newPassword, 12);
 
     // Prepare an object to store updated user details
     const updatedUserDetails = {};
 
-    // If there's a new name, update it
-    if (newName) {
+    // If there's a new name and updating name
+    if (newName && updateField === 'name') {
       updatedUserDetails.name = newName;
     }
 
-    // If there's a new avatar image, update it
-    if (newAvatarImg) {
+    // If there's a new avatar image and updating avatar_img
+    if (newAvatarImg && updateField === 'avatar_img') {
       updatedUserDetails.avatar_img = newAvatarImg;
     }
 
-    // Update the password in the database
-    await User.updateUserDetails(userId, hashedNewPassword, updatedUserDetails);
+    // Update the user details in the database
+    await User.updateUserDetails(userId, updatedUserDetails);
 
     // Send response
-    res.status(200).json({ message: 'Password and user details changed successfully.' });
+    res.status(200).json({ message: 'User details changed successfully.' });
   } catch (err) {
     // Handle errors
     if (!err.statusCode) {
@@ -215,4 +224,3 @@ exports.updateUserDetails = async (req, res, next) => {
     next(err);
   }
 };
-
