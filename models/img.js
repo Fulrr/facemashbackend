@@ -47,7 +47,7 @@ module.exports = class Image {
 
   static updateImg(userId, newImg) {
     return db.execute(
-      'UPDATE images SET image_url = ? WHERE aid = ?',
+      'UPDATE images SET image_url = ? WHERE image_id = ?',
       [newImg, userId]
     );
   }
