@@ -65,6 +65,20 @@ exports.onlyone = async (req, res, next) => {
     }
  };
 
+ exports.findimage = async (req, res, next) => {
+    const id = req.params.id;
+  
+    try {
+        const allImages = await Image.findimage(id); 
+        res.status(200).json(allImages); 
+    } catch (err) {
+        if (!err.statusCode) {
+            err.statusCode = 500;
+        }
+        next(err);
+    }
+ };
+
  exports.upload = async (req, res, next) => {
     const { image_url, facemash_id }  = req.body;
     
@@ -76,3 +90,15 @@ exports.onlyone = async (req, res, next) => {
         res.status(500).json({ error: 'Failed to add image' });
     }
 };
+
+exports.delete = async (req, res, next) => {
+    try {
+      const deleteResponse = await Image.delete(req.params.id);
+      res.status(200).json(deleteResponse);
+    } catch (err) {
+      if (!err.statusCode) {
+        err.statusCode = 500;
+      }
+      next(err);
+    }
+  };
