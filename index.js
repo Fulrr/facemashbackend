@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const authRoutes = require('./routes/auth');
 const imgsRoutes = require('./routes/imgs');
+const uploadRoutes = require('./routes/upload');
 const errorController = require('./controllers/error');
 // import {router as upload} from "./api/upload";
 const app = express();
@@ -18,7 +19,7 @@ app.use((req, res, next) => {
 
 app.use('/auth', authRoutes);
 app.use('/img', imgsRoutes);
-
+app.use('/upload', uploadRoutes);
 // //Uploads
 // app.use("/upload", upload);
 // app.use("/uploads", express.static("uploads"));
