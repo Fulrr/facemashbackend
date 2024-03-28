@@ -116,6 +116,7 @@ exports.delete = async (req, res, next) => {
     }
 };
 
+<<<<<<< HEAD
 exports.fetchAllUserDetail= async (req, res, next) => {
     try {
         const facemashId = req.params.facemashId; // รับ facemashId ที่ส่งมาจาก frontend
@@ -128,4 +129,24 @@ exports.fetchAllUserDetail= async (req, res, next) => {
         next(err);
     }
 };
+=======
+exports.changeImage = async (req, res, next) => {
+    const userId = req.body.userId;
+    const newImg = req.body.newImg;
+  
+    try {
+      // Update the user's avatar_img in the database
+      await Image.updateImg(userId, newImg);
+  
+      // Send success response
+      res.status(200).json({ message: 'image changed successfully.' });
+    } catch (err) {
+      // Handle errors
+      if (!err.statusCode) {
+        err.statusCode = 500;
+      }
+      next(err);
+    }
+  };
+>>>>>>> b2f34903a79530c8041fc207cdfbafc9e7d18446
 
