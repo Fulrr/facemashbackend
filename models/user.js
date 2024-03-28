@@ -32,6 +32,14 @@ module.exports = class User {
         return db.execute('SELECT * FROM account',);
     }
 
+    static updatePassword(userId, hashedNewPassword) {
+        return db.execute(
+            'UPDATE account SET password = ? WHERE aid = ?',
+            [hashedNewPassword, userId]
+        );
+    }
+    
+
     
 };
 
