@@ -40,6 +40,10 @@ module.exports = class Image {
   static delete(id) {
     return db.execute('DELETE FROM images WHERE image_id = ?', [id]);
   }
+
+  static fetchAllByUserId(userId) {
+    return db.execute('SELECT * FROM images WHERE facemash_id = ?', [userId]);
+}
 };
 
 
