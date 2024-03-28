@@ -30,7 +30,7 @@ module.exports = class Image {
   }
 
   static findimage(mid) {
-    return db.execute('SELECT *,image_url, account.name as name FROM images INNER JOIN account on images.facemash_id = account.aid WHERE image_id = ?', [mid]);
+    return db.execute('SELECT image_url, account.name as name FROM images INNER JOIN account on images.facemash_id = account.aid WHERE image_id = ?', [mid]);
   }
 
   static addImage(image_url, facemash_id) {
@@ -43,23 +43,14 @@ module.exports = class Image {
 
   static fetchAllByUserId(userId) {
     return db.execute('SELECT * FROM images WHERE facemash_id = ?', [userId]);
-<<<<<<< HEAD
 }
 
 static fetchAllByFacemashId(facemashId) {
   return db.execute('SELECT * FROM images WHERE facemash_id = ?', [facemashId]);
 }
 
-=======
-  }
 
-  static updateImg(userId, newImg) {
-    return db.execute(
-      'UPDATE images SET image_url = ?, points = 1500 WHERE image_id = ?',
-      [newImg, userId]
-    );
-  }
->>>>>>> b2f34903a79530c8041fc207cdfbafc9e7d18446
+
 };
 
 
