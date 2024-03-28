@@ -35,9 +35,9 @@ router.post('/getUsedetail', authController.getUsedetail);
 
 router.put('/updatePassword', authController.updatePassword);
 
-router.put('/changeName', authMiddleware, userController.changeName);
+router.put('/changeName',  authController.changeName);
 
-router.put('/changeAvatar', authMiddleware, userController.changeAvatar);
+router.put('/changeAvatar',  authController.changeAvatar);
 
 
 
