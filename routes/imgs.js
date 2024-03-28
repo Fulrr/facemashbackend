@@ -15,7 +15,7 @@ router.get('/find/:id', imgsController.onlyone);
 router.get('/findimage/:id', imgsController.findimage);
 router.post('/add-image', imgsController.upload);
 router.delete('/delete/:id', imgsController.delete);
-router.get('/fetchAllUserImg', imgsController.fetchAllUserImg);
+router.get('/fetchAllUserImg/:userId', imgsController.fetchAllUserImg);
 
 
 module.exports = router;
