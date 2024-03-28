@@ -123,6 +123,7 @@ exports.getUsedetail = async (req, res, next) => {
 
 
     res.status(200).json({
+      aid: storedUser.aid,
       avatar_img: storedUser.avatar_img,
       name: storedUser.name,
       email: storedUser.email,
@@ -140,6 +141,7 @@ exports.getUsedetail = async (req, res, next) => {
   
 };
 
+<<<<<<< HEAD
 exports.changePassword = async (req, res, next) => {
   const userId = req.body.userId;
   const oldPassword = req.body.oldPassword;
@@ -187,3 +189,17 @@ exports.changePassword = async (req, res, next) => {
 };
 
 
+=======
+
+exports.getaccount = async (req, res, next) => {
+  try {
+      const allac = await User.getaccount(); 
+      res.status(200).json(allac); 
+  } catch (err) {
+      if (!err.statusCode) {
+          err.statusCode = 500;
+      }
+      next(err);
+  }
+};
+>>>>>>> 6e7e74ccffa78d4be48c97374df638edb8265170

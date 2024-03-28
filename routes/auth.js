@@ -25,18 +25,24 @@ router.post(
 );
 
 
-router.post(
-    '/login', authController.login);
+router.post('/login', authController.login);
 
-router.get('/show:id', authController.getCurrentUser);
+router.get('/show/:id', authController.getCurrentUser);
 
 router.post('/getUsedetail', authController.getUsedetail);
 
+<<<<<<< HEAD
 router.post('/changePassword', authController.changePassword);
 
 router.get(
     '/checkToken', authController.checkToken);
+=======
+router.get('/getaccount', authController.getaccount);
+>>>>>>> 6e7e74ccffa78d4be48c97374df638edb8265170
 
+router.get('/checkToken', authController.checkToken);
+
+// router.get('/findID:id', authController.finduserId);
       
 
 module.exports = router;

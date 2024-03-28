@@ -28,6 +28,10 @@ module.exports = class User {
         return db.execute('SELECT name FROM account',);
     }
 
+    static getaccount() {
+        return db.execute('SELECT * FROM account',);
+    }
+
     
 };
 

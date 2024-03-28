@@ -51,3 +51,28 @@ exports.fetchTopTenUser = async (req, res, next) => {
     }
 };
 
+exports.onlyone = async (req, res, next) => {
+    const id = req.params.id;
+  
+    try {
+        const allImages = await Image.onlyone(id); 
+        res.status(200).json(allImages); 
+    } catch (err) {
+        if (!err.statusCode) {
+            err.statusCode = 500;
+        }
+        next(err);
+    }
+ };
+
+ exports.upload = async (req, res, next) => {
+    const { image_url, facemash_id }  = req.body;
+    
+    try {
+        const result = await Image.addImage(image_url, facemash_id); 
+        res.status(200).json({ message: 'Image successfully added' });
+    } catch (error) {
+        console.error('Error adding image:', error);
+        res.status(500).json({ error: 'Failed to add image' });
+    }
+};

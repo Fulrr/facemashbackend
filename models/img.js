@@ -24,6 +24,14 @@ module.exports = class Image {
   static fetchTopTenUser() {
     return db.execute('SELECT * FROM account');
   }
+
+  static onlyone(aid) {
+    return db.execute('SELECT image_url, account.name as name FROM images INNER JOIN account on images.facemash_id = account.aid WHERE facemash_id = ?', [aid]);
+  }
+
+  static addImage(image_url, facemash_id) {
+    return db.execute('INSERT INTO images (image_url, facemash_id) VALUES (?, ?)', [image_url, facemash_id]);
+}
 };
 
 
