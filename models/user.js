@@ -40,27 +40,7 @@ module.exports = class User {
       }
       
 
-      static updateUserDetails(userId, updatedUserDetails) {
-        let updateQuery = 'UPDATE account SET ';
-        const queryParams = [];
-        
-        // Iterate through the updatedUserDetails object to build the query
-        for (const [key, value] of Object.entries(updatedUserDetails)) {
-          updateQuery += `${key} = ?, `;
-          queryParams.push(value);
-        }
-        
-        // Remove the trailing comma and space
-        updateQuery = updateQuery.slice(0, -2);
-      
-        // Add the WHERE clause
-        updateQuery += ' WHERE aid = ?';
-        queryParams.push(userId);
-        
-        // Execute the update query
-        return db.execute(updateQuery, queryParams);
-      }
-      
+    
       
 
     

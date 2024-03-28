@@ -155,72 +155,49 @@ exports.getaccount = async (req, res, next) => {
 };
 
 
-exports.updateUserDetails = async (req, res, next) => {
+exports.updatePassword = async (req, res, next) => {
   const userId = req.body.userId;
   const oldPassword = req.body.oldPassword;
   const newPassword = req.body.newPassword;
-  const newName = req.body.newName;
-  const newAvatarImg = req.body.newAvatarImg;
-  const updateField = req.body.updateField; // Field to update: password, name, or avatar_img
 
   try {
-    // Find the user by userId
+    // ค้นหาผู้ใช้ด้วย userId
     const user = await User.finduserId(userId);
 
-    // Check if the user exists
+    // ตรวจสอบว่ามีผู้ใช้หรือไม่
     if (user[0].length !== 1) {
       const error = new Error('A user with this ID could not be found.');
       error.statusCode = 404;
       throw error;
     }
 
-    // Store user data
+    // เก็บข้อมูลผู้ใช้
     const storedUser = user[0][0];
 
-    // Check if the old password is correct if updating password
-    if (updateField === 'password') {
-      const isEqual = await bcrypt.compare(oldPassword, storedUser.password);
+    // ตรวจสอบว่ารหัสผ่านเดิมถูกต้องหรือไม่
+    const isEqual = await bcrypt.compare(oldPassword, storedUser.password);
 
-      // If the old password is incorrect
-      if (!isEqual) {
-        const error = new Error('Old password is incorrect.');
-        error.statusCode = 401;
-        throw error;
-      }
-
-      // If the old password is correct, hash the new password
-      const hashedNewPassword = await bcrypt.hash(newPassword, 12);
-
-      // Update the password in the database
-      await User.updatePassword(userId, hashedNewPassword);
-
-      // Send response
-      return res.status(200).json({ message: 'Password changed successfully.' });
+    // ถ้ารหัสผ่านไม่ตรงกับรหัสผ่านเดิม
+    if (!isEqual) {
+      const error = new Error('Old password is incorrect.');
+      error.statusCode = 401;
+      throw error;
     }
 
-    // Prepare an object to store updated user details
-    const updatedUserDetails = {};
+    // ถ้ารหัสผ่านเดิมถูกต้อง ให้เข้ารหัสรหัสผ่านใหม่
+    const hashedNewPassword = await bcrypt.hash(newPassword, 12);
 
-    // If there's a new name and updating name
-    if (newName && updateField === 'name') {
-      updatedUserDetails.name = newName;
-    }
+    // อัปเดตรหัสผ่านใหม่ในฐานข้อมูล
+    await User.updatePassword(userId, hashedNewPassword);
 
-    // If there's a new avatar image and updating avatar_img
-    if (newAvatarImg && updateField === 'avatar_img') {
-      updatedUserDetails.avatar_img = newAvatarImg;
-    }
-
-    // Update the user details in the database
-    await User.updateUserDetails(userId, updatedUserDetails);
-
-    // Send response
-    res.status(200).json({ message: 'User details changed successfully.' });
+    // ส่งคำตอบกลับ
+    res.status(200).json({ message: 'Password changed successfully.' });
   } catch (err) {
-    // Handle errors
+    // จัดการข้อผิดพลาด
     if (!err.statusCode) {
       err.statusCode = 500;
     }
     next(err);
   }
 };
+
