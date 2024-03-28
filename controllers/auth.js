@@ -140,3 +140,50 @@ exports.getUsedetail = async (req, res, next) => {
   
 };
 
+exports.changePassword = async (req, res, next) => {
+  const userId = req.body.userId;
+  const oldPassword = req.body.oldPassword;
+  const newPassword = req.body.newPassword;
+
+  try {
+    // ค้นหาผู้ใช้ด้วย userId
+    const user = await User.finduserId(userId);
+
+    // ตรวจสอบว่ามีผู้ใช้หรือไม่
+    if (user[0].length !== 1) {
+      const error = new Error('A user with this ID could not be found.');
+      error.statusCode = 404;
+      throw error;
+    }
+
+    // เก็บข้อมูลผู้ใช้
+    const storedUser = user[0][0];
+
+    // ตรวจสอบว่ารหัสผ่านเดิมถูกต้องหรือไม่
+    const isEqual = await bcrypt.compare(oldPassword, storedUser.password);
+
+    // ถ้ารหัสผ่านไม่ตรงกับรหัสผ่านเดิม
+    if (!isEqual) {
+      const error = new Error('Old password is incorrect.');
+      error.statusCode = 401;
+      throw error;
+    }
+
+    // ถ้ารหัสผ่านเดิมถูกต้อง ให้เข้ารหัสรหัสผ่านใหม่
+    const hashedNewPassword = await bcrypt.hash(newPassword, 12);
+
+    // อัปเดตรหัสผ่านใหม่ในฐานข้อมูล
+    await User.updatePassword(userId, hashedNewPassword);
+
+    // ส่งคำตอบกลับ
+    res.status(200).json({ message: 'Password changed successfully.' });
+  } catch (err) {
+    // จัดการข้อผิดพลาด
+    if (!err.statusCode) {
+      err.statusCode = 500;
+    }
+    next(err);
+  }
+};
+
+
