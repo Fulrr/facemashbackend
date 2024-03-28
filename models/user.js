@@ -9,11 +9,11 @@ module.exports = class User {
     }
 
     static find(email) {
-        return db.execute('SELECT * FROM account WHERE email = ?',[email]);
+        return db.execute('SELECT * FROM account WHERE email = ?', [email]);
     }
 
     static finduserId(userId) {
-        return db.execute('SELECT * FROM account WHERE aid = ?',[userId]);
+        return db.execute('SELECT * FROM account WHERE aid = ?', [userId]);
     }
 
 
@@ -32,6 +32,33 @@ module.exports = class User {
         return db.execute('SELECT * FROM account',);
     }
 
-    
+    static updatePassword(userId, newPassword) {
+        return db.execute(
+            'UPDATE account SET password = ? WHERE aid = ?',
+            [newPassword, userId]
+        );
+    }
+
+    static updateName(userId, newName) {
+        return db.execute(
+            'UPDATE account SET name = ? WHERE aid = ?',
+            [newName, userId]
+        );
+    }
+
+    static updateAvatar(userId, newAvatarImg) {
+        return db.execute(
+            'UPDATE account SET avatar_img = ? WHERE aid = ?',
+            [newAvatarImg, userId]
+        );
+    }
+
+
+
+
+
+
+
+
 };
 

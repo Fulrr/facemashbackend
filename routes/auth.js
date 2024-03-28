@@ -31,7 +31,21 @@ router.get('/show/:id', authController.getCurrentUser);
 
 router.post('/getUsedetail', authController.getUsedetail);
 
+
+
+router.put('/updatePassword', authController.updatePassword);
+
+router.put('/changeName',  authController.changeName);
+
+router.put('/changeAvatar',  authController.changeAvatar);
+
+
+
+router.get(
+    '/checkToken', authController.checkToken);
+
 router.get('/getaccount', authController.getaccount);
+
 
 router.get('/checkToken', authController.checkToken);
 
