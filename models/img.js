@@ -44,6 +44,11 @@ module.exports = class Image {
   static fetchAllByUserId(userId) {
     return db.execute('SELECT * FROM images WHERE facemash_id = ?', [userId]);
 }
+
+static fetchAllByFacemashId(facemashId) {
+  return db.execute('SELECT * FROM images WHERE facemash_id = ?', [facemashId]);
+}
+
 };
 
 

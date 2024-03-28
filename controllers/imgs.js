@@ -116,3 +116,16 @@ exports.delete = async (req, res, next) => {
     }
 };
 
+exports.fetchAllUserDetail= async (req, res, next) => {
+    try {
+        const facemashId = req.params.facemashId; // รับ facemashId ที่ส่งมาจาก frontend
+        const allImages = await Image.fetchAllByFacemashId(facemashId); // เรียกใช้เมธอด fetchAllByFacemashId จากโมเดล Image
+        res.status(200).json(allImages); 
+    } catch (err) {
+        if (!err.statusCode) {
+            err.statusCode = 500;
+        }
+        next(err);
+    }
+};
+
