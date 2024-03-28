@@ -125,7 +125,7 @@ exports.changeImage = async (req, res, next) => {
       await Image.updateImg(userId, newImg);
   
       // Send success response
-      res.status(200).json({ message: 'Avatar image changed successfully.' });
+      res.status(200).json({ message: 'image changed successfully.' });
     } catch (err) {
       // Handle errors
       if (!err.statusCode) {
