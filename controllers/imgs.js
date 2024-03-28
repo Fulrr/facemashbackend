@@ -103,7 +103,7 @@ exports.delete = async (req, res, next) => {
     }
   };
 
-  exports.fetchAll = async (req, res, next) => {
+  exports.fetchAllUserImg = async (req, res, next) => {
     try {
         const userId = req.params.userId; // รับ userId ที่ส่งมาจาก frontend
         const allImages = await Image.fetchAllByUserId(userId); // เรียกใช้เมธอด fetchAllByUserId จากโมเดล
