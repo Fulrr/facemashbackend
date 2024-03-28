@@ -201,3 +201,42 @@ exports.updatePassword = async (req, res, next) => {
   }
 };
 
+exports.changeName = async (req, res, next) => {
+  const userId = req.body.userId;
+  const newName = req.body.newName;
+
+  try {
+    // Update the user's name in the database
+    await User.updateName(userId, newName);
+
+    // Send success response
+    res.status(200).json({ message: 'Name changed successfully.' });
+  } catch (err) {
+    // Handle errors
+    if (!err.statusCode) {
+      err.statusCode = 500;
+    }
+    next(err);
+  }
+};
+
+exports.changeAvatar = async (req, res, next) => {
+  const userId = req.body.userId;
+  const newAvatarImg = req.body.newAvatarImg;
+
+  try {
+    // Update the user's avatar_img in the database
+    await User.updateAvatar(userId, newAvatarImg);
+
+    // Send success response
+    res.status(200).json({ message: 'Avatar image changed successfully.' });
+  } catch (err) {
+    // Handle errors
+    if (!err.statusCode) {
+      err.statusCode = 500;
+    }
+    next(err);
+  }
+};
+
+
