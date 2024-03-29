@@ -130,12 +130,12 @@ exports.fetchAllUserDetail = async (req, res, next) => {
 };
 
 exports.changeImage = async (req, res, next) => {
-    const userId = req.body.userId;
-    const newImg = req.body.newImg;
+    const image_id = req.body.image_id;
+    const image_url = req.body.image_url;
   
     try {
       // Update the user's avatar_img in the database
-      await Image.updateImg(userId, newImg);
+      await Image.updateImg(image_id, image_url);
   
       // Send success response
       res.status(200).json({ message: 'image changed successfully.' });
