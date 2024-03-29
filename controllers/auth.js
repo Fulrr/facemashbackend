@@ -235,3 +235,22 @@ exports.changeAvatar = async (req, res, next) => {
 };
 
 
+exports.getAccountById = async (req, res, next) => {
+  const userId = req.params.userId; // Assuming userId is sent as a parameter
+
+  try {
+    const account = await User.getAccountById(userId);
+    
+    if (!account) {
+      // If account with provided userId is not found, return 404
+      return res.status(404).json({ message: "Account not found" });
+    }
+
+    res.status(200).json(account); // Send the account data if found
+  } catch (err) {
+    console.error("Error retrieving account:", err);
+    res.status(500).json({ message: "Internal server error" });
+  }
+};
+
+

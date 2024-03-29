@@ -45,6 +45,7 @@ router.get(
     '/checkToken', authController.checkToken);
 
 router.get('/getaccount', authController.getaccount);
+router.get('/getAccountById', authController.getAccountById);
 
 
 router.get('/checkToken', authController.checkToken);

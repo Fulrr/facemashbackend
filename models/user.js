@@ -53,6 +53,10 @@ module.exports = class User {
         );
     }
 
+    static getAccountById(userId) {
+        return db.execute('SELECT * FROM account WHERE aid = ?', [userId]);
+      }
+
 
 
 
