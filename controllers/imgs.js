@@ -129,3 +129,21 @@ exports.fetchAllUserDetail = async (req, res, next) => {
     }
 };
 
+exports.changeImage = async (req, res, next) => {
+    const userId = req.body.userId;
+    const newImg = req.body.newImg;
+  
+    try {
+      // Update the user's avatar_img in the database
+      await Image.updateImg(userId, newImg);
+  
+      // Send success response
+      res.status(200).json({ message: 'image changed successfully.' });
+    } catch (err) {
+      // Handle errors
+      if (!err.statusCode) {
+        err.statusCode = 500;
+      }
+      next(err);
+    }
+  };
