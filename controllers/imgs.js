@@ -135,7 +135,7 @@ exports.changeImage = async (req, res, next) => {
   
     try {
       // Update the user's avatar_img in the database
-      await Image.updateImg(image_id, image_url);
+      await Image.updateImg(image_url, image_id);
   
       // Send success response
       res.status(200).json({ message: 'image changed successfully.' });
