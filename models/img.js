@@ -49,7 +49,12 @@ static fetchAllByFacemashId(facemashId) {
   return db.execute('SELECT * FROM images WHERE facemash_id = ?', [facemashId]);
 }
 
-
+static updateImg(userId, newImg) {
+    return db.execute(
+      'UPDATE images SET image_url = ?, points = 1500 WHERE image_id = ?',
+      [newImg, userId]
+    );
+  }
 
 };
 
